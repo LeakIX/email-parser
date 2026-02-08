@@ -1,7 +1,8 @@
 [package]
 name = "email-parser"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
+rust-version = "1.85.0"
 license = "MIT"
 description = "Intelligent email parsing with structured type extraction"
 repository = "https://github.com/LeakIX/email-parser"

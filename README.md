@@ -1,9 +1,10 @@
 # email-parser
 
-Intelligent email parsing library for Rust. Parses raw email bytes into
+Intelligent email parsing library for Rust, built on top of
+[mailparse](https://crates.io/crates/mailparse). Parses raw email bytes into
 strongly-typed structures with automatic entity extraction.
 
-[Documentation](https://leakix.github.io/email-parser)
+[API Documentation](https://leakix.github.io/email-parser)
 
 ## Features
 
@@ -27,6 +28,10 @@ assert_eq!(email.from.address, "alice@example.com");
 assert_eq!(email.subject.original, "Hello");
 assert!(!email.extracted.phone_numbers.is_empty());
 ```
+
+## MSRV
+
+The minimum supported Rust version is **1.85.0** (edition 2024).
 
 ## License
 

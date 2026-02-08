@@ -27,9 +27,17 @@ check: ## Check code for compilation errors
 check-format: ## Check code formatting
 	cargo +nightly fmt --check
 
+.PHONY: check-format-toml
+check-format-toml: ## Check TOML formatting
+	taplo fmt --check
+
 .PHONY: format
 format: ## Format code
 	cargo +nightly fmt
+
+.PHONY: format-toml
+format-toml: ## Format TOML files
+	taplo fmt
 
 .PHONY: lint
 lint: ## Run linter
