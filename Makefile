@@ -2,8 +2,7 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
     SED := $(shell command -v gsed 2>/dev/null)
     ifeq ($(SED),)
-        $(error GNU sed (gsed) not found on macOS. \
-			Install with: brew install gnu-sed)
+        SED := $(error gsed not found. Install with: brew install gnu-sed)
     endif
 else
     SED := sed
