@@ -101,23 +101,23 @@ impl EmailAddress {
         let s = s.trim();
 
         // Try to match "Name <email@domain.com>" format
-        if let Some(start) = s.find('<') {
-            if let Some(end) = s.find('>') {
-                let name_part = s[..start].trim().trim_matches('"');
-                let address = s[start + 1..end].trim().to_string();
+        if let Some(start) = s.find('<')
+            && let Some(end) = s.find('>')
+        {
+            let name_part = s[..start].trim().trim_matches('"');
+            let address = s[start + 1..end].trim().to_string();
 
-                if let Some((local, domain)) = address.split_once('@') {
-                    return Some(Self {
-                        name: if name_part.is_empty() {
-                            None
-                        } else {
-                            Some(PersonName::parse(name_part))
-                        },
-                        local_part: local.to_string(),
-                        domain: domain.to_string(),
-                        address,
-                    });
-                }
+            if let Some((local, domain)) = address.split_once('@') {
+                return Some(Self {
+                    name: if name_part.is_empty() {
+                        None
+                    } else {
+                        Some(PersonName::parse(name_part))
+                    },
+                    local_part: local.to_string(),
+                    domain: domain.to_string(),
+                    address,
+                });
             }
         }
 

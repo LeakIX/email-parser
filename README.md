@@ -31,7 +31,7 @@ assert!(!email.extracted.phone_numbers.is_empty());
 
 ## MSRV
 
-The minimum supported Rust version is **1.85.0** (edition 2024).
+The minimum supported Rust version is **1.90.0** (edition 2024).
 
 ## License
 
