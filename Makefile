@@ -1,9 +1,6 @@
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
-    SED := $(shell command -v gsed 2>/dev/null)
-    ifeq ($(SED),)
-        SED := $(error gsed not found. Install with: brew install gnu-sed)
-    endif
+    SED := $(shell command -v gsed 2>/dev/null || echo "")
 else
     SED := sed
 endif
@@ -52,6 +49,9 @@ clean: ## Clean build artifacts
 
 .PHONY: fix-trailing-whitespace
 fix-trailing-whitespace: ## Remove trailing whitespaces from all files
+ifeq ($(SED),)
+	$(error gsed not found on macOS. Install with: brew install gnu-sed)
+endif
 	@echo "Removing trailing whitespaces from all files..."
 	@find . -type f \( \
 		-name "*.rs" -o -name "*.toml" -o -name "*.md" \
