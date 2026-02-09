@@ -73,6 +73,36 @@ endif
 			_ {} \; && \
 		echo "Trailing whitespaces removed."
 
+VERSION := $(shell grep '^version' Cargo.toml \
+	| head -1 | sed 's/.*"\(.*\)"/\1/')
+
+.PHONY: publish
+publish: ## Publish crate: tag, GH release, crates.io
+	@if [ -z "$(VERSION)" ]; then \
+		echo "Error: could not read version"; exit 1; \
+	fi
+	@if git rev-parse "v$(VERSION)" >/dev/null 2>&1; then \
+		echo "Error: tag v$(VERSION) already exists"; \
+		exit 1; \
+	fi
+	@if ! grep -q "## $(VERSION)" CHANGELOG.md 2>/dev/null; \
+	then \
+		echo "Error: CHANGELOG.md has no entry for" \
+			"$(VERSION)"; \
+		exit 1; \
+	fi
+	@echo "Publishing v$(VERSION)..."
+	cargo publish --dry-run
+	git tag -a "v$(VERSION)" -m "v$(VERSION)"
+	git push origin "v$(VERSION)"
+	gh release create "v$(VERSION)" \
+		--title "v$(VERSION)" \
+		--notes "$$(sed -n \
+			'/^## $(VERSION)/,/^## /{/^## $(VERSION)/d;/^## /d;p;}' \
+			CHANGELOG.md)"
+	cargo publish
+	@echo "Published v$(VERSION)"
+
 .PHONY: check-trailing-whitespace
 check-trailing-whitespace: ## Check for trailing whitespaces
 	@echo "Checking for trailing whitespaces..."

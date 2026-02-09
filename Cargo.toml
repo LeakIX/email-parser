@@ -6,6 +6,10 @@ rust-version = "1.90.0"
 license = "MIT"
 description = "Intelligent email parsing with structured type extraction"
 repository = "https://github.com/LeakIX/email-extract"
+documentation = "https://docs.rs/email-extract"
+readme = "README.md"
+keywords = ["email", "parser", "extraction", "mime", "rfc5322"]
+categories = ["email", "parser-implementations"]
 
 [dependencies]
 mailparse = "0.16"
@@ -15,7 +19,6 @@ chrono = { version = "0.4", features = ["serde"] }
 thiserror = "2.0"
 tracing = "0.1.40"
 regex = "1.11"
-once_cell = "1.20"
 
 [dev-dependencies]
 tokio-test = "0.4"
