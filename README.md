@@ -1,10 +1,10 @@
-# email-parser
+# email-extract
 
 Intelligent email parsing library for Rust, built on top of
 [mailparse](https://crates.io/crates/mailparse). Parses raw email bytes into
 strongly-typed structures with automatic entity extraction.
 
-[API Documentation](https://leakix.github.io/email-parser)
+[API Documentation](https://leakix.github.io/email-extract)
 
 ## Features
 
@@ -15,19 +15,6 @@ strongly-typed structures with automatic entity extraction.
 - Spam indicator detection and scoring
 - Signature block separation
 - HTML-to-text fallback for HTML-only emails
-
-## Usage
-
-```rust
-use email_parser::{Email, parse_email};
-
-let raw = b"From: alice@example.com\r\nSubject: Hello\r\n\r\nCall me at 555-1234";
-let email = parse_email(1, raw).unwrap();
-
-assert_eq!(email.from.address, "alice@example.com");
-assert_eq!(email.subject.original, "Hello");
-assert!(!email.extracted.phone_numbers.is_empty());
-```
 
 ## MSRV
 

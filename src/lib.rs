@@ -1,35 +1,30 @@
-// Enforce at crate level
-#![deny(clippy::all)]
-#![warn(clippy::pedantic)]
-#![warn(clippy::nursery)]
-#![allow(clippy::missing_errors_doc, clippy::missing_panics_doc)]
-#![allow(clippy::significant_drop_tightening)]
-
-//! Intelligent Email Parser
+//! Intelligent email parsing with structured type extraction.
 //!
-//! A modular, strongly-typed email parsing library that extracts structured
-//! information from raw email data.
+//! Built on top of [mailparse](https://crates.io/crates/mailparse), this
+//! library parses raw email bytes into strongly-typed structures with
+//! automatic entity extraction.
 //!
 //! # Features
 //!
 //! - Strong typing for all email components
-//! - Automatic entity extraction (emails, phones, URLs, names)
-//! - Sentiment analysis hints
-//! - Language detection
-//! - Thread analysis
-//! - Spam indicators
+//! - Automatic entity extraction (emails, phones, URLs, names, companies,
+//!   monetary amounts, social handles)
+//! - Thread analysis (reply depth, references, in-reply-to)
+//! - Spam indicator detection and scoring
+//! - Signature block separation
+//! - HTML-to-text fallback for HTML-only emails
 //!
 //! # Example
 //!
 //! ```rust
-//! use email_parser::{Email, parse_email};
+//! use email_extract::{Email, parse_email};
 //!
-//! let raw_email = b"From: sender@example.com\r\nSubject: Hello\r\n\r\nBody";
-//! let email = parse_email(1, raw_email).unwrap();
+//! let raw = b"From: alice@example.com\r\nSubject: Hello\r\n\r\nCall me at 555-1234";
+//! let email = parse_email(1, raw).unwrap();
 //!
-//! println!("From: {}", email.from);
-//! println!("Extracted emails: {:?}", email.extracted.emails);
-//! println!("Extracted phones: {:?}", email.extracted.phone_numbers);
+//! assert_eq!(email.from.address, "alice@example.com");
+//! assert_eq!(email.subject.original, "Hello");
+//! assert!(!email.extracted.phone_numbers.is_empty());
 //! ```
 
 mod error;

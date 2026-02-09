@@ -1,11 +1,11 @@
 [package]
-name = "email-parser"
+name = "email-extract"
 version = "0.1.0"
 edition = "2024"
 rust-version = "1.90.0"
 license = "MIT"
 description = "Intelligent email parsing with structured type extraction"
-repository = "https://github.com/LeakIX/email-parser"
+repository = "https://github.com/LeakIX/email-extract"
 
 [dependencies]
 mailparse = "0.16"
@@ -19,3 +19,10 @@ once_cell = "1.20"
 
 [dev-dependencies]
 tokio-test = "0.4"
+
+[lints.clippy]
+all = "deny"
+pedantic = "deny"
+nursery = "deny"
+missing_errors_doc = { level = "allow", priority = 1 }
+missing_panics_doc = { level = "allow", priority = 1 }

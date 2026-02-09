@@ -1,4 +1,4 @@
-use email_parser::*;
+use email_extract::*;
 
 #[test]
 fn test_extract_emails() {

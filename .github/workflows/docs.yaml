@@ -30,7 +30,7 @@ jobs:
       - name: Create index.html redirect
         run: >
           echo '<meta http-equiv="refresh"
-          content="0; url=email_parser/">'
+          content="0; url=email_extract/">'
           > target/doc/index.html
 
       - uses: actions/configure-pages@v5
